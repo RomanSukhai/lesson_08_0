@@ -1,14 +1,31 @@
+/*
+
+It's my code,then only .Only I can using him,because have author rights for him
+But I am allow for them in order to using him too))))))))))))))))))))
+
+ */
+
 package ru.unum.work;
-import ua.lviv.lgs.enumeraion.console.Aplication;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
+
+/**
+ * @since java 1.8
+ * @author Roma
+ * @version 1.1
+ */
+
+
+//name to class start
 public class Main {
+    //enum for Season
     enum Season {
         WINTER, SPRING, SUMMER, AUTUMN;
     }
 
-
+    //enum for Month
     enum Month {
         JANUARY(30, Season.WINTER),
         FEBRUARY(23, Season.SPRING),
@@ -22,23 +39,30 @@ public class Main {
         NOVEMBER(23, Season.AUTUMN),
         DECEMBER(31, Season.WINTER);
 
+        //variable type int,name day
         int day;
+
+        //variable type class,name season and month
         Season season;
         Month month;
 
-        public int getDay() {
+        //getter for day
+        public int /*name getter --->*/getDay() {
             return day;
         }
 
-        public Season getSeason() {
+        //getter for season
+        public /*name getter --->*/Season getSeason() {
             return season;
         }
 
-        public Month getMonth() {
+        //getter for month
+        public /*name getter --->*/Month getMonth() {
             return month;
         }
 
-        Month(int day, Season season) {
+        //this is constructor
+        /*name constructor --->*/Month(int day, Season season) {
             this.day = day;
             this.season = season;
         }
@@ -46,11 +70,16 @@ public class Main {
 
 
     }
-    public static final int[] LOGICAL_NAMES = new int[Month.values().length];
+    //docs for mas int[]
+    public static final int[] /*name mas --->*/LOGICAL_NAMES = new int[Month.values().length];
+
+    //this is check mas name LOGICAL_NAMES
     static{
         for(int i=0; i<Month.values().length; i++)
             LOGICAL_NAMES[i]=Month.values()[i].day;
     }
+
+    //this is print in order to can using in program
     public static void main(){
         System.out.println(" ");
         System.out.println("Натисніть 1 (Чи є такий місяць)");
@@ -66,164 +95,184 @@ public class Main {
         System.out.println(" ");
     }
 
-    public static void main(String[] args) {
+    //this is begin program
+    public static void main(String[] args) throws WrongInputConsoleParametersException {
         Main.main();
         Season[] masSeason = Season.values();
         Month[] masMonth = Month.values();
         Scanner sc = new Scanner(System.in);
+
+
+        //this is start cycle this program,which can work in order to hold user
+
         while (true) {
 
-            switch (sc.next()) {
-                case "1": {
-                    System.out.print("Enter month: ");
-                    sc = new Scanner(System.in);
-                    String input = sc.next().toUpperCase(Locale.ROOT);
+                    int scan = sc.nextInt();
+                    if (scan<=9){
+                        if (scan==1){
+                            System.out.print("Enter month: ");
+                            sc = new Scanner(System.in);
+                            String input = sc.next().toUpperCase(Locale.ROOT);
 
-                    ControlMonth(input);
-                    Main.main();
-                    break;
-                }
+                            //this method control and check Month in mas,whether it exists
+                            ControlMonth(input);
+                            Main.main();
+                            break;
+                        }
 
 
-                case "2": {
+                        if (scan==2){
 
-                    System.out.print("Enter season: ");
-                    sc = new Scanner(System.in);
-                    String input = sc.next().toUpperCase(Locale.ROOT);
+                            System.out.print("Enter season: ");
+                            sc = new Scanner(System.in);
+                            String input = sc.next().toUpperCase(Locale.ROOT);
 
-                    boolean flag = MonthOfSeason(masSeason, masMonth, input);
+                            //this method print all month for season in order to write user
+                            boolean flag = MonthOfSeason(masSeason, masMonth, input);
 
-                    if (!flag) {
-                        System.out.println("Сезону не існує");
-                    }
-                    Main.main();
-                    break;
-                }
-                case "3": {
+                            if (!flag) {
+                                System.out.println("Сезону не існує");
+                            }
+                            Main.main();
+                            break;
+                        }
+                        if (scan==3){
 
-                    System.out.print("Enter day: ");
-                    sc = new Scanner(System.in);
-                    int inputsc = sc.nextInt();
+                            System.out.print("Enter day: ");
+                            sc = new Scanner(System.in);
+                            int inputsc = sc.nextInt();
 
-                    MonthOfCountDay(masMonth, inputsc);
-                    Main.main();
-                    break;
-                }
-                case "4": {
-                    int max = 0;
-                    max=LOGICAL_NAMES[0];
-                    for (int i = 1; i < 10; i++) {
-                        if (LOGICAL_NAMES[i] > max) {
-                            max = LOGICAL_NAMES[i];
-                            for (Month m :masMonth){
-                                if (max ==m.getDay()){
-                                    System.out.println(m.name());
+                            MonthOfCountDay(masMonth, inputsc);
+                            Main.main();
+                            break;
+                        }
+                        if (scan==4){
+                            int max = 0;
+                            max=LOGICAL_NAMES[0];
+                            for (int i = 1; i < 10; i++) {
+                                if (LOGICAL_NAMES[i] > max) {
+                                    max = LOGICAL_NAMES[i];
+                                    for (Month m :masMonth){
+                                        if (max ==m.getDay()){
+                                            System.out.println(m.name());
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
-                    Main.main();
-                    break;
+                            Main.main();
+                            break;
 
-                }
-                case "5":{
-                    int min = 0;
-                    min=LOGICAL_NAMES[0];
-                    for (int i = 1; i < 10; i++) {
-                        if (LOGICAL_NAMES[i] < min) {
-                            min = LOGICAL_NAMES[i];
-                            for (Month m :masMonth){
-                                if (min ==m.getDay()){
-                                    System.out.println(m.name());
+                        }
+                        if (scan==5){
+                            int min = 0;
+                            min=LOGICAL_NAMES[0];
+                            for (int i = 1; i < 10; i++) {
+                                if (LOGICAL_NAMES[i] < min) {
+                                    min = LOGICAL_NAMES[i];
+                                    for (Month m :masMonth){
+                                        if (min ==m.getDay()){
+                                            System.out.println(m.name());
+                                        }
+                                    }
                                 }
                             }
+                            Main.main();
+                            break;
+                        }
+                        if (scan==6){
+                            System.out.print("Enter season: ");
+                            sc = new Scanner(System.in);
+                            String input = sc.next().toUpperCase(Locale.ROOT);
+
+                            boolean flag =false;
+
+                            for (Season s : masSeason) {
+                                if (s.name().equals(input)) {
+                                    System.out.println("Сезон існує");
+                                    flag = true;
+                                }
+                            }
+
+                            if(flag){
+                                Season cont2 = Season.valueOf(input);
+                                int ordinal = cont2.ordinal();
+
+                                if (ordinal == (masSeason.length - 1) ){
+                                    ordinal = 0;
+                                    System.out.println(masSeason[ordinal]);
+                                }
+                                else {
+                                    System.out.println(masSeason[ordinal+1]);
+
+                                }
+
+                            }
+                            if (!flag) {
+                                System.out.println("Немає такої кількості");
+                            }
+                            Main.main();
+                            break;
+                        }
+                        if (scan==7){
+                            System.out.print("Enter season: ");
+                            sc = new Scanner(System.in);
+                            String input = sc.next().toUpperCase(Locale.ROOT);
+
+                            boolean flag =false;
+
+                            for (Season s : masSeason) {
+                                if (s.name().equals(input)) {
+                                    System.out.println("Сезон існує");
+                                    flag = true;
+                                }
+                            }
+
+                            if(flag){
+                                Season cont2 = Season.valueOf(input);
+                                int ordinal = cont2.ordinal();
+
+                                if (ordinal == (masSeason.length +1) ){
+                                    ordinal = 0;
+                                    System.out.println(masSeason[ordinal]);
+                                }
+                                else if (input.equalsIgnoreCase("Winter")){
+                                    System.out.println(masSeason[(ordinal+(3))]);
+                                }
+                                else {
+                                    System.out.println(masSeason[(ordinal+(-1))]);
+
+                                }
+
+                            }
+                            if (!flag) {
+                                System.out.println("Немає такої кількості");
+                            }
+                            Main.main();
+                            break;
+
+                        }
+                        if (scan==8){
+                            SteamDaySeason(0);
+                        }
+                        if (scan==9){
+                            NoSteamDaySeason();
                         }
                     }
-                    Main.main();
-                    break;
-                }
-                case "6": {
-                    System.out.print("Enter season: ");
-                    sc = new Scanner(System.in);
-                    String input = sc.next().toUpperCase(Locale.ROOT);
+                    else {
 
-                    boolean flag =false;
-
-                    for (Season s : masSeason) {
-                        if (s.name().equals(input)) {
-                            System.out.println("Сезон існує");
-                            flag = true;
-                        }
+                        String mesenger = "The values should be from 1 to 9";
+                        throw new WrongInputConsoleParametersException(mesenger);
                     }
-
-                    if(flag){
-                        Season cont2 = Season.valueOf(input);
-                        int ordinal = cont2.ordinal();
-
-                        if (ordinal == (masSeason.length - 1) ){
-                            ordinal = 0;
-                            System.out.println(masSeason[ordinal]);
-                        }
-                        else {
-                            System.out.println(masSeason[ordinal+1]);
-
-                        }
-
-                    }
-                    if (!flag) {
-                        System.out.println("Немає такої кількості");
-                    }
-                    Main.main();
-                    break;
-                }
-                case "7": {
-                    System.out.print("Enter season: ");
-                    sc = new Scanner(System.in);
-                    String input = sc.next().toUpperCase(Locale.ROOT);
-
-                    boolean flag =false;
-
-                    for (Season s : masSeason) {
-                        if (s.name().equals(input)) {
-                            System.out.println("Сезон існує");
-                            flag = true;
-                        }
-                    }
-
-                    if(flag){
-                        Season cont2 = Season.valueOf(input);
-                        int ordinal = cont2.ordinal();
-
-                        if (ordinal == (masSeason.length +1) ){
-                            ordinal = 0;
-                            System.out.println(masSeason[ordinal]);
-                        }
-                        else if (input.equalsIgnoreCase("Winter")){
-                            System.out.println(masSeason[(ordinal+(3))]);
-                        }
-                        else {
-                            System.out.println(masSeason[(ordinal+(-1))]);
-
-                        }
-
-                    }
-                    if (!flag) {
-                        System.out.println("Немає такої кількості");
-                    }
-                    Main.main();
-                    break;
-
-                }
-                case "8":{
-                    SteamDaySeason(0);
-                }
-                case "9":{
-                    NoSteamDaySeason();
-                }
-
-            }
         }
     }
+
+    /**
+     * @param no input params
+     * @exception WrongInputConsoleParametersException
+     * @author Roma
+     * @return null
+     * @see java code convention
+     **/
 
     private static void MonthOfCountDay(Month[] masMonth, int inputsc) {
         boolean flag = false;
@@ -270,7 +319,8 @@ public class Main {
             }
         }
         if (!flag){
-            System.out.println("Такаога місяця не існує");
+            String toExceptionMessenger ="Pleas,write Month,whether it exists ";
+
         }
         return;
     }
